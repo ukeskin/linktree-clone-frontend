@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "../../api/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Register() {
   const navigateTo = useNavigate();
@@ -12,14 +13,17 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post("/auth/register", formState).then((res) => {
-      navigateTo("/login");
+      toast.success("Registered successfully");
+      setTimeout(() => {
+        navigateTo("/login");
+      }, 1000);
     });
   };
 
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col w-full max-w-sm">
-        <h1>Register</h1>
+        <h1 className="text-center text-3xl font-bold mb-4">Register</h1>
         <input
           type="email"
           placeholder="Email"
@@ -63,6 +67,9 @@ export default function Register() {
         >
           Register
         </button>
+        <Link to="/login" className="text-center mt-4">
+          Already have an account?
+        </Link>
       </div>
     </div>
   );

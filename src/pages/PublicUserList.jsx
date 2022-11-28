@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import axios from "../api/axios";
 import { useParams } from "react-router-dom";
+import LinkList from "../components/LinkList";
+import LinkCard from "../components/LinkCard";
+
 export default function PublicUserList() {
   let { username, listName } = useParams();
   const [list, setList] = React.useState([]);
@@ -17,29 +20,15 @@ export default function PublicUserList() {
   }, [username, listName]);
 
   return (
-    <div className="w-full min-h-screen bg-slate-200 flex items-center justify-center p-5">
-      <div className="w-full max-w-2xl mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <div className="flex justify-between px-6 py-4 flex-col">
-          <h1 className="text-xl font-semibold text-gray-700 dark:text-white">
-            {list?.title}
-          </h1>
-          <p className="text-lg font-semibold text-gray-400">{list?.desc}</p>
-          <div className="flex flex-col mt-4">
-            {list.links &&
-              list.links.map((item) => (
-                <li className="list-none text-lg text-gray-200 hover:bg-gray-300 p-3 rounded-lg">
-                  <a
-                    className="w-full"
-                    href={item.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {item.title}
-                  </a>
-                </li>
-              ))}
-          </div>
-        </div>
+    <div className="w-full min-h-screen flex items-center justify-center bg-blue-500 p-5">
+      <div className="shadow-md py-12 px-8 rounded-xl bg-gray-100 flex flex-col relative max-w-[450px] w-full">
+        <h2 className="text-2xl font-medium text-gray-700">{list?.title}</h2>
+        <p className="text-lg font-semibold text-gray-400">{list?.desc}</p>
+        <LinkList>
+          {list.links?.map((item) => (
+            <LinkCard key={item._id} title={item.title} url={item.url} />
+          ))}
+        </LinkList>
       </div>
     </div>
   );

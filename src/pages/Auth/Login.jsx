@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import axios from "../../api/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import toast from "react-hot-toast";
 export default function Login() {
   const navigateTo = useNavigate();
   const { user } = useAuth();
@@ -14,7 +15,7 @@ export default function Login() {
     e.preventDefault();
     axios.post("/auth/login", formState).then((res) => {
       localStorage.setItem("token", res.data.token);
-
+      toast.success("Logged in successfully");
       setTimeout(() => {
         window.location.href = "/";
       }, 1000);
@@ -57,6 +58,9 @@ export default function Login() {
         >
           Giriş Yap
         </button>
+        <Link to="/register" className="text-center mt-4">
+          Do not have an account? Register
+        </Link>
       </div>
     </div>
   );
