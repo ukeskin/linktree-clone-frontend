@@ -10,7 +10,6 @@ import LinkCard from "../../components/LinkCard";
 export default function List() {
   const { user } = useAuth();
   const [links, setLinks] = useState([]);
-  const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [formState, setFormState] = useState({
     desc: "",
@@ -34,21 +33,13 @@ export default function List() {
         });
       });
     });
-  }, [state.listId]);
+  }, [state.listId, showEditModal]);
 
   const handleCopyPageLink = () => {
     navigator.clipboard.writeText(
       `${window.location.origin}/${user.username}/${slug}`
     );
     toast.success("Copied to clipboard");
-  };
-
-  const handleShowAddForm = () => {
-    setShowAddModal(!showAddModal);
-    setFormState({
-      title: "",
-      url: "",
-    });
   };
 
   const handleShowEditForm = () => {
