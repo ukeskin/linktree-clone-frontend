@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosCre = axios.create({
-  baseURL: "http://78.135.83.71:4000",
+  baseURL: "https://linktree-clone-api.oguzhanercelik.dev/",
   headers: {
     Authorization: localStorage.getItem("token"),
   },
