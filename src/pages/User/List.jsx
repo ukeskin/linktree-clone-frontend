@@ -43,18 +43,6 @@ export default function List() {
     toast.success("Copied to clipboard");
   };
 
-  const handleNewLink = () => {
-    axios
-      .put(`/api/lists/${state?.listId}`, formState)
-      .then((res) => {
-        handleShowAddForm();
-        setLinks([...links, formState]);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.msg);
-      });
-  };
-
   const handleShowAddForm = () => {
     setShowAddModal(!showAddModal);
     setFormState({
@@ -87,7 +75,7 @@ export default function List() {
       <div className="shadow-md py-12 px-8 rounded-xl bg-gray-100 flex flex-col relative max-w-[450px] w-full">
         <button
           onClick={handleCopyPageLink}
-          className="bg-lime-500 hover:bg-lime-600 text-white font-bold h-12 w-12 rounded-xl absolute right-[102px] -top-4 border-4 shadow-sm flex items-center justify-center"
+          className="bg-lime-500 hover:bg-lime-600 text-white font-bold h-12 w-12 rounded-xl absolute right-16 -top-4 border-4 shadow-sm flex items-center justify-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +94,7 @@ export default function List() {
         </button>
         <button
           onClick={handleShowEditForm}
-          className="bg-orange-500 hover:bg-orange-600 text-white font-bold h-12 w-12 rounded-xl absolute right-12 -top-4 border-4 shadow-sm flex items-center justify-center"
+          className="bg-orange-500 hover:bg-orange-600 text-white font-bold h-12 w-12 rounded-xl absolute right-2 -top-4 border-4 shadow-sm flex items-center justify-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -123,12 +111,7 @@ export default function List() {
             />
           </svg>
         </button>
-        <button
-          onClick={handleShowAddForm}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold h-12 w-12 rounded-xl absolute -right-2 -top-4 border-4 shadow-sm justify-center items-center"
-        >
-          +
-        </button>
+
         <h2 className="text-2xl font-medium text-gray-700">
           {formState.title}
         </h2>
@@ -227,49 +210,6 @@ export default function List() {
                   className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl"
                 >
                   Save
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      {showAddModal && (
-        <div className="w-full h-screen bg-black/50 fixed">
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="w-1/2 h-1/2 bg-white rounded-xl shadow-md flex flex-col items-center justify-between p-5">
-              <h2 className="text-2xl font-medium text-gray-700">New Link</h2>
-              <div className="flex flex-col w-full">
-                <input
-                  type="text"
-                  className="border-2 border-gray-300 rounded-xl p-2 mt-4 w-full"
-                  placeholder="Link Title"
-                  value={formState.title}
-                  onChange={(e) =>
-                    setFormState({ ...formState, title: e.target.value })
-                  }
-                />
-                <input
-                  type="text"
-                  className="border-2 border-gray-300 rounded-xl p-2 mt-4 w-full"
-                  placeholder="Link URL"
-                  value={formState.url}
-                  onChange={(e) =>
-                    setFormState({ ...formState, url: e.target.value })
-                  }
-                />
-              </div>
-              <div className="flex items-center w-full gap-4">
-                <button
-                  onClick={handleShowAddForm}
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl mt-4"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleNewLink}
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl mt-4"
-                >
-                  Create
                 </button>
               </div>
             </div>
